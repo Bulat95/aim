@@ -5,6 +5,8 @@ Desktop-мессенджер для общения с NPC-персонажами
 Автор: Проект на основе proxy5.py
 Дата: 2025-10-23
 """
+from settings_manager import SettingsManager
+from settings_chat_panel import SettingsChatPanel
 
 import tkinter as tk
 from tkinter import ttk, scrolledtext, messagebox, filedialog
@@ -140,6 +142,9 @@ class MessengerApp:
     """Основной класс приложения мессенджера."""
 
     def __init__(self, root):
+
+        self.settings_manager = SettingsManager()
+
         """
         Инициализация приложения.
 
@@ -373,6 +378,8 @@ class MessengerApp:
         create_group_btn.pack(fill=tk.X, side=tk.BOTTOM, padx=10, pady=10)
 
     def populate_chats_list(self):
+
+        self.create_chat_item("settings", "🛠️ Настройки", "system")
         """Заполняет список чатов в sidebar."""
         # Очищаем текущий список
         for widget in self.chats_container.winfo_children():
@@ -642,6 +649,15 @@ class MessengerApp:
             chat_id: ID чата
         """
         self.current_chat_id = chat_id
+
+        self.current_chat_id = chat_id
+        for widget in self.messages_container.winfo_children():
+            widget.destroy()
+        if chat_id == "settings":
+            panel = SettingsChatPanel(self.messages_container, self.settings_manager)
+            panel.pack(fill=tk.BOTH, expand=True)
+            self.header_name_label.config(text="Настройки")
+            return
 
         # Обновляем заголовок
         if chat_id in self.characters:
