@@ -1,8 +1,3 @@
-api_settings:
-  max_tokens: 300
-  model: claude-sonnet-4-5
-  provider: claude
-  temperature: 0.8
 avatar: characters/jessica/photos/avatar.jpg
 group_prompt: 'Ты Джессика в групповом чате "{group_name}".
 
